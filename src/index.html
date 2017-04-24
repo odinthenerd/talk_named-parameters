@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Named Parameters</title>
+
+		<link rel="stylesheet" href="../deps/reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="../deps/reveal.js/css/theme/black.css">
+		<link rel="stylesheet" href="../deps/theme/theme.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../deps/reveal.js/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="logo-kvasir"></div>
+		<div class="logo-ai"></div>
+		<div class="copyright">&copy; Odin Holmes</div>
+		<div class="reveal">
+			<div class="slides">
+				<section class="center">
+					<h1 style="font-size:20vh;"><span style="color:red;">@</span>odin<span style="color:red;">the</span>nerd</h1>
+				</section>
+				<section>
+					<h3>Named Parameters</h3>
+					<pre><code style="max-height:100000px; height:60vh;" class="cpp">auto talk = make_talk(
+	author="Odin Holmes",
+	twitter="@odinthenerd");</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh;" class="cpp">struct some_name{
+    some_name operator=(int in){
+        return some_name{};
+    }
+};</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh;" class="cpp">struct some_name{
+    template&lt;typename T&gt;
+    some_name operator=(T in){
+        return some_name{};
+    }
+};
+					</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh;" class="cpp">template&lt;typename...Args&gt;
+void my_fn(Args...args){
+    //extract specific args
+}
+
+int main(){ 
+    my_fn(some_name = 10);
+}
+				</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh;" class="cpp">struct some_name{
+    template&lt;typename T&gt;
+    std::pair&lt;some_name,T&gt; operator=(T in){
+        return std::pair&lt;some_name,T&gt;{{},in};
+    }
+};
+					</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh;" class="cpp">template&lt;typename...Args&gt;
+void my_fn(Args...args){
+    //extract specific args
+}
+
+int main(){ 
+    my_fn(some_name = 10);
+}
+				</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh;" class="cpp">template&lt;typename CharT, CharT...s&gt;
+constexpr arguement&lt;s...&gt; operator""_arg(){return {};}
+					</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh;" class="cpp">template&lt;char...s&gt;
+struct arguement{
+    template&lt;typename T&gt;
+    std::pair&lt;arguement,T&gt; operator=(T in){
+        return std::pair&lt;arguement,T&gt;{{},in};
+    }
+};
+					</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh;" class="cpp">int main(){ 
+    my_fn("some_name"_arg = 10);
+}
+					
+					</code></pre>
+				</section>
+				<section class="center">
+                                        <h1>Find me online</h1>
+                                        <h1 style="color:red;">@odinthenerd</h1>
+                                        <br>
+                                        github.com/odinthenerd <br>
+                                        twitter.com/odinthenerd <br>
+                                        odinthenerd.blogspot.com
+                                </section>
+
+			</div>
+		</div>
+
+		<script src="../deps/reveal.js/lib/js/head.min.js"></script>
+		<script src="../deps/reveal.js/js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				width:1920,
+				height:1080,
+				history: true,
+				touch: false,
+				center: false,
+				controls: false,
+				slideNumber: false,
+				transition: 'fade',
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: '../deps/reveal.js/plugin/markdown/marked.js' },
+					{ src: '../deps/reveal.js/plugin/markdown/markdown.js' },
+					{ src: '../deps/reveal.js/plugin/notes/notes.js', async: true },
+					{ src: '../deps/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
