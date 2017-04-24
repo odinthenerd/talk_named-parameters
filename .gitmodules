@@ -1,0 +1,6 @@
+[submodule "deps/theme"]
+	path = deps/theme
+	url = https://github.com/auto-intern/aiPresentation_reveal.git
+[submodule "deps/reveal.js"]
+	path = deps/reveal.js
+	url = https://github.com/hakimel/reveal.js.git
