@@ -33,19 +33,19 @@
 				</section>
 				<section>
 					<h3>Named Parameters</h3>
-					<pre><code style="max-height:100000px; height:60vh;" class="cpp">auto talk = make_talk(
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">auto talk = make_talk(
 	author="Odin Holmes",
 	twitter="@odinthenerd");</code></pre>
 				</section>
 				<section>
-					<pre><code style="max-height:100000px; height:60vh;" class="cpp">struct some_name{
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">struct some_name{
     some_name operator=(int in){
         return some_name{};
     }
 };</code></pre>
 				</section>
 				<section>
-					<pre><code style="max-height:100000px; height:60vh;" class="cpp">struct some_name{
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">struct some_name{
     template&lt;typename T&gt;
     some_name operator=(T in){
         return some_name{};
@@ -54,7 +54,7 @@
 					</code></pre>
 				</section>
 				<section>
-					<pre><code style="max-height:100000px; height:60vh;" class="cpp">template&lt;typename...Args&gt;
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">template&lt;typename...Args&gt;
 void my_fn(Args...args){
     //extract specific args
 }
@@ -65,16 +65,19 @@ int main(){
 				</code></pre>
 				</section>
 				<section>
-					<pre><code style="max-height:100000px; height:60vh;" class="cpp">struct some_name{
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">struct some_name{
     template&lt;typename T&gt;
     std::pair&lt;some_name,T&gt; operator=(T in){
-        return std::pair&lt;some_name,T&gt;{{},in};
+        return std::pair&lt;some_name,T&gt;{
+	        {},
+	        in
+	    };
     }
 };
 					</code></pre>
 				</section>
 				<section>
-					<pre><code style="max-height:100000px; height:60vh;" class="cpp">template&lt;typename...Args&gt;
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">template&lt;typename...Args&gt;
 void my_fn(Args...args){
     //extract specific args
 }
@@ -85,12 +88,12 @@ int main(){
 				</code></pre>
 				</section>
 				<section>
-					<pre><code style="max-height:100000px; height:60vh;" class="cpp">template&lt;typename CharT, CharT...s&gt;
-constexpr arguement&lt;s...&gt; operator""_arg(){return {};}
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">template&lt;typename CharT, CharT...Cs&gt;
+constexpr arguement&lt;Ts...&gt; operator""_arg(){return {};}
 					</code></pre>
 				</section>
 				<section>
-					<pre><code style="max-height:100000px; height:60vh;" class="cpp">template&lt;char...s&gt;
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">template&lt;char...Cs&gt;
 struct arguement{
     template&lt;typename T&gt;
     std::pair&lt;arguement,T&gt; operator=(T in){
@@ -100,11 +103,34 @@ struct arguement{
 					</code></pre>
 				</section>
 				<section>
-					<pre><code style="max-height:100000px; height:60vh;" class="cpp">int main(){ 
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">int main(){ 
     my_fn("some_name"_arg = 10);
 }
 					
 					</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">template&lt;typename...Args&gt;
+void my_fn(Args...args){
+    int x = "x"_arg(args...);
+    int y = "y"_arg(args...);
+    int width = "width"_arg(args...);
+    int height = "height"_arg(args...);
+}
+					
+				</code></pre>
+				</section>
+				<section>
+					<pre><code style="max-height:100000px; height:60vh; font-size: 2em; line-height: 1;" class="cpp">template&lt;typename...Args&gt;
+void my_fn(Args...args){
+    auto ta = parameter::make_tuple(
+        "x"_arg & pred_v&lt;
+            push_front&lt;int,cfe&lt;std::is_convertable&gt;&gt;
+        &gt;
+        )(std::forward&lt;Args&gt;(args)...);
+    auto x = ta["x"_arg];	//indexing is trivial
+}
+				</code></pre>
 				</section>
 				<section class="center">
                                         <h1>Find me online</h1>
